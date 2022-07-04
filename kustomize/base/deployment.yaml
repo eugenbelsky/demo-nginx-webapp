@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-webapp
+  labels:
+    app: demo-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-webapp
+  template:
+    metadata:
+      labels:
+        app: demo-webapp
+    spec:
+      containers:
+      - name: demo-webapp
+        image: eugnebelskyi/webapp:latest
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5

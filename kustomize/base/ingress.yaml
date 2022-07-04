@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: demo-webapp-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+    acme.cert-manager.io/http01-edit-in-place: "true"
+  labels:
+    app: demo-webapp
+spec:
+  tls:
+  - hosts:
+    - my.app.domain
+    secretName: demo-webapp-cert-secret
+  rules:
+  - host: my.app.domain
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: demo-webapp-svc
+          servicePort: 8080

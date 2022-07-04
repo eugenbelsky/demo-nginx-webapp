@@ -10,4 +10,10 @@ locals {
     purpose = "demo"
   }
   gke_cluster_tags = ["eugen", "demo"]
+
+  cm_namespace = "cert-manager"
+  cm_chart     = "cert-manager"
+  cm_repo      = "https://charts.jetstack.io"
+  cm_version   = "v1.2.0"
+  cm_release   = "cert-manager"
 }

@@ -89,12 +89,15 @@ jobs:
           credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       # Install Helm
-      # - name: Install Helm
-      #   run: |
-      #     curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+      - name: Install Helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
-      # # Deploy Application
-      # - name: Deploy Application
-      #   run: |
-      #     helm upgrade --atomic --dependency-update  --create-namespace --cleanup-on-fail  -i $RELEASE_NAME ./helm \
-      #     --wait
+
+      # Deploy Application
+      - name: Deploy Application
+        run: |
+          kubectl apply -k  kustomize/overlays/demo
+
+      
+      

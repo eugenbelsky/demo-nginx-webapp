@@ -1,0 +1,10 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: demo-webapp-ingress
+spec:
+  tls:
+  - hosts:
+    - demo.app.com
+  rules:
+  - host: demo.app.com
