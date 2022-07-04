@@ -16,3 +16,12 @@ resource "google_container_cluster" "primary" {
     tags   = local.gke_cluster_tags
   }
 }
+
+data "google_client_config" "current" {
+}
+
+
+data "google_container_cluster" "primary" {
+  name     = local.gke_cluster_name
+  location = local.gke_cluster_zone
+}

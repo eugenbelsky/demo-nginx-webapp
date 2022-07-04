@@ -1,20 +1,3 @@
-
-data "kubectl_filename_list" "cm-crds" {
-  pattern = "./crds/cert-manager.crds.yaml"
-}
-
-
-resource "kubectl_manifest" "cm-crds" {
-  count              = length(data.kubectl_filename_list.cm-crds.matches)
-  override_namespace = local.cm_namespace
-  yaml_body          = file(element(data.kubectl_filename_list.cm-crds.matches, count.index))
-  depends_on = [
-    google_container_cluster.primary
-  ]
-}
-
-
-
 resource "helm_release" "cert-manager" {
   name             = local.cm_release
   repository       = local.cm_repo
@@ -25,7 +8,7 @@ resource "helm_release" "cert-manager" {
   atomic           = true
 
   depends_on = [
-    kubectl_manifest.cm-crds
+    google_container_cluster.primary
   ]
 }
 

@@ -14,6 +14,11 @@ locals {
   cm_namespace = "cert-manager"
   cm_chart     = "cert-manager"
   cm_repo      = "https://charts.jetstack.io"
-  cm_version   = "v1.2.0"
+  cm_version   = "v1.8.2"
   cm_release   = "cert-manager"
+
+  nginx_namespace = "ingress-nginx"
+  nginx_chart     = "ingress-nginx"
+  nginx_repo      = "https://kubernetes.github.io/ingress-nginx"
+  nginx_release   = "ingress-nginx"
 }
