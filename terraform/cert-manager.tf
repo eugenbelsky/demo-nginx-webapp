@@ -14,6 +14,7 @@ resource "kubectl_manifest" "cm-crds" {
 
 resource "helm_release" "cert-manager" {
   name             = local.cm_release
+  skip_crds        = true
   repository       = local.cm_repo
   chart            = local.cm_chart
   version          = local.cm_version
@@ -27,19 +28,19 @@ resource "helm_release" "cert-manager" {
 }
 
 
-# data "kubectl_filename_list" "cm-cluster-issuer" {
-#   pattern = "./crds/cluster-issuer.yaml"
-# }
+data "kubectl_filename_list" "cm-cluster-issuer" {
+  pattern = "./crds/cluster-issuer.yaml"
+}
 
 
-# resource "kubectl_manifest" "cm-cluster-issuer" {
-#   count              = length(data.kubectl_filename_list.cm-cluster-issuer.matches)
-#   override_namespace = local.cm_namespace
-#   yaml_body          = file(element(data.kubectl_filename_list.cm-cluster-issuer.matches, count.index))
-#   depends_on = [
-#     helm_release.cert-manager
-#   ]
-# }
+resource "kubectl_manifest" "cm-cluster-issuer" {
+  count              = length(data.kubectl_filename_list.cm-cluster-issuer.matches)
+  override_namespace = local.cm_namespace
+  yaml_body          = file(element(data.kubectl_filename_list.cm-cluster-issuer.matches, count.index))
+  depends_on = [
+    helm_release.cert-manager
+  ]
+}
 
 
 
