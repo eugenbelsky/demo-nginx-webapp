@@ -19,7 +19,9 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              service: demo-webapp-svc
-              port:
-                number: 80
+              service:
+                name: demo-webapp-svc
+                port:
+                  number: 80
