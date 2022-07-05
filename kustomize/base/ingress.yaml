@@ -12,10 +12,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - demo.app.com
+        - demo.app2.com
       secretName: demo-webapp-cert-secret
   rules:
-    - host: demo.app.com
+    - host: demo.app2.com
       http:
         paths:
           - path: /
